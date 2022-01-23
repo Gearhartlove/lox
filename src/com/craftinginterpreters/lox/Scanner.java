@@ -81,7 +81,16 @@ public class Scanner {
                 if (match('/')) {
                     // A comment goes until the end of the line.
                     while (peek() != '\n' && !isAtEnd()) advance();
-                } else {
+                }
+                //my own code > adding c style /* ... */ comments
+                else if (match('*')) {
+                    while (peek() != '*' && peekNext() != '/') {
+                        if (peek() == '\n') line++;
+                        advance();
+                    }
+                }
+                //end
+                else {
                     addToken(SLASH);
                 }
                 break;
